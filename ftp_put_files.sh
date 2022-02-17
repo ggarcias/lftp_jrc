@@ -91,8 +91,7 @@ bye
 EOF
 }
 
- 
-for fl in $srcflpattern;
+for fl in $srcflpattern/schout*nc
 do
   echo 'copying file '$fl
   remoteExist=$(getRemoteExists $fl)
