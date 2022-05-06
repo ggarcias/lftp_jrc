@@ -1,6 +1,32 @@
-# LFTP JRC
-Bash script to send schism outputs from hpc to jeodpp server
+# LFTP JEODPP
 
-## Important!
-There is a crontab scheduled in jeodpp desk that mv the files from input-ftp dir to 
-a directory where I can store all the data I need.
+Bash script to send files from your local computer to jeodpp server
+
+
+## Authors
+- [@menta78](https://github.com/menta78)
+- [@ggarcias](https://www.github.com/ggarcias)
+## Installation
+
+- Credentials to access JEODPP Cloud
+- lftp 
+
+Install lftp:
+
+We recommend to use lftp from anaconda
+
+```bash
+conda install -c conda-forge lftp 
+```
+    
+## Usage/Examples
+
+```bash
+matlab ...
+```
+
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
