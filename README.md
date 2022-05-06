@@ -22,7 +22,7 @@ conda install -c conda-forge lftp
 ## Usage/Examples
 
 ```bash
-matlab ...
+bash ftp_put_files.sh ...
 ```
 
 
