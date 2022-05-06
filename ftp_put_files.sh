@@ -46,7 +46,7 @@ then
 fi
 
 
-echo 'copying files '$srcflpattern
+echo "copying files "$directory/$fileRoot
 
 ftpportal=jeodpp.jrc.ec.europa.eu
 lftp=$LFTP
