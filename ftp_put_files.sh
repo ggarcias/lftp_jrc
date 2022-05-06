@@ -4,21 +4,44 @@
 # checks if the file esists remotely and if it has the same size as the local one.
 # all this is done explicitely because the mirror command of lftp does not work
 # sample call:
-#  ./ftpPutFls.sh 'mydir/myfilepattern*' destination-dir
+# TODO
+#  <>
 
 
 while [ $# -gt 0 ] ; do
     case $1 in
-        -s | --src) srcflpattern=$2;;
+        -d | --directory) directory=$2;;
+        -f | --file) fileRoot=$2;;
     esac
     shift
 done
 
 
-if [ -z "${srcflpattern+xxx}" ]
+if [ -z "${directory+xxx}" ]
 then
-    echo "Error! Undefined filename pattern."
-    echo "Example: schout*nc"
+    echo "Error! Undefined directory path."
+    echo "Example: --directory data/"
+    exit -1
+fi
+
+if [ -z "${fileRoot+xxx}" ]
+then
+    echo "Error! Undefined file root."
+    echo "Example: --file schout*nc"
+    exit -1
+fi
+
+if [ -z "${CREDENTIALS+xxx}" ]
+then
+    echo "Error! Undefined CREDENTIALS."
+    echo "export CREDENTIALS=<credentials> or add CREDENTIALS to .bashrc"
+    exit -1
+fi
+
+if [ -z "${LFTP+xxx}" ]
+then
+    echo "Error! Undefined LFTP."
+    echo "export LFTP=<path to lftp> or add LFTP to .bashrc"
     exit -1
 fi
 
@@ -26,7 +49,7 @@ fi
 echo 'copying files '$srcflpattern
 
 ftpportal=jeodpp.jrc.ec.europa.eu
-lftp=/home/garcgui/anaconda3/bin/lftp
+lftp=$LFTP
 
 rm -rf ./exist.out ./size.out ./kk*
 
@@ -91,7 +114,7 @@ bye
 EOF
 }
 
-for fl in $srcflpattern/schout*nc
+for fl in $directory/$fileRoot
 do
   echo 'copying file '$fl
   remoteExist=$(getRemoteExists $fl)
