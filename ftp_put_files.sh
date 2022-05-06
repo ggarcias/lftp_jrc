@@ -12,6 +12,7 @@ while [ $# -gt 0 ] ; do
     case $1 in
         -d | --directory) directory=$2;;
         -f | --file) fileRoot=$2;;
+        -u | --user) username=$2;;
     esac
     shift
 done
@@ -31,6 +32,14 @@ then
     exit -1
 fi
 
+if [ -z "${username+xxx}" ]
+then
+	echo "========================================================================="
+    echo "Saving data in feyenlu folder"
+	echo "========================================================================="
+	username=feyenlu
+fi
+
 if [ -z "${CREDENTIALS+xxx}" ]
 then
     echo "Error! Undefined CREDENTIALS."
@@ -46,7 +55,9 @@ then
 fi
 
 
+echo ""
 echo "copying files "$directory/$fileRoot
+echo ""
 
 ftpportal=jeodpp.jrc.ec.europa.eu
 lftp=$LFTP
@@ -60,7 +71,7 @@ set ftp:ssl-auth TLS
 set ftp:ssl-force yes
 set ssl:verify-certificate no
 set ssl-allow true
-cd input-ftp/garcgui/schism_wwm_global
+cd input-ftp/${username}
 du $filePath > ./exist.out
 bye
 EOF 
@@ -82,7 +93,7 @@ set ftp:ssl-auth TLS
 set ftp:ssl-force yes
 set ssl:verify-certificate no
 set ssl-allow true
-cd input-ftp/garcgui/schism_wwm_global
+cd input-ftp/${username}/
 ls > kk
 du $filePath > ./size.out
 bye
@@ -108,7 +119,7 @@ set ftp:ssl-auth TLS
 set ftp:ssl-force yes
 set ssl:verify-certificate no
 set ssl-allow true
-cd input-ftp/garcgui/schism_wwm_global
+cd input-ftp/${username}
 put $srcflpath
 bye
 EOF
