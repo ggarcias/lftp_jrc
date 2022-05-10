@@ -10,35 +10,35 @@
 
 while [ $# -gt 0 ] ; do
     case $1 in
-        -d | --directory) directory=$2;;
+#        -d | --directory) directory=$2;;
         -f | --file) fileRoot=$2;;
-        -u | --user) username=$2;;
+#        -u | --user) username=$2;;
     esac
     shift
 done
 
 
-if [ -z "${directory+xxx}" ]
-then
-    echo "Error! Undefined directory path."
-    echo "Example: --directory data/"
-    exit -1
-fi
+#if [ -z "${directory+xxx}" ]
+#then
+#    echo "Error! Undefined directory path."
+#    echo "Example: --directory data/"
+#    exit -1
+#fi
 
 if [ -z "${fileRoot+xxx}" ]
 then
     echo "Error! Undefined file root."
-    echo "Example: --file schout*nc"
+    echo "Example: --file data/schout*nc"
     exit -1
 fi
 
-if [ -z "${username+xxx}" ]
-then
-	echo "========================================================================="
-    echo "Saving data in feyenlu folder"
-	echo "========================================================================="
-	username=feyenlu
-fi
+#if [ -z "${username+xxx}" ]
+#then
+#	echo "========================================================================="
+#    echo "Saving data in feyenlu folder"
+#	echo "========================================================================="
+#	username=
+#fi
 
 if [ -z "${CREDENTIALS+xxx}" ]
 then
@@ -71,7 +71,7 @@ set ftp:ssl-auth TLS
 set ftp:ssl-force yes
 set ssl:verify-certificate no
 set ssl-allow true
-cd input-ftp/${username}
+cd input-ftp/
 du $filePath > ./exist.out
 bye
 EOF 
@@ -93,7 +93,7 @@ set ftp:ssl-auth TLS
 set ftp:ssl-force yes
 set ssl:verify-certificate no
 set ssl-allow true
-cd input-ftp/${username}/
+cd input-ftp//
 ls > kk
 du $filePath > ./size.out
 bye
@@ -119,13 +119,13 @@ set ftp:ssl-auth TLS
 set ftp:ssl-force yes
 set ssl:verify-certificate no
 set ssl-allow true
-cd input-ftp/${username}
+cd input-ftp/
 put $srcflpath
 bye
 EOF
 }
 
-for fl in $directory/$fileRoot
+for fl in $fileRoot
 do
   echo 'copying file '$fl
   remoteExist=$(getRemoteExists $fl)
