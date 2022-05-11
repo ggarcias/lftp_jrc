@@ -65,14 +65,15 @@ lftp=$LFTP
 rm -rf ./exist.out ./size.out ./kk*
 
 getRemoteExists (){
-  filePath=$1
+	filePath=$1
+	fileName=$(echo ${filePath} | awk -F '/' '{print $NF}')
 $lftp -u $CREDENTIALS $ftpportal << EOF
 set ftp:ssl-auth TLS
 set ftp:ssl-force yes
 set ssl:verify-certificate no
 set ssl-allow true
 cd input-ftp/
-du $filePath > ./exist.out
+du $fileName > ./exist.out
 bye
 EOF 
 EOF
@@ -87,7 +88,8 @@ EOF
 
 
 getRemoteSize (){
-  filePath=$1
+	filePath=$1
+	fileName=$(echo ${filePath} | awk -F '/' '{print $NF}')
 $lftp -u $CREDENTIALS $ftpportal << EOF
 set ftp:ssl-auth TLS
 set ftp:ssl-force yes
@@ -95,7 +97,7 @@ set ssl:verify-certificate no
 set ssl-allow true
 cd input-ftp//
 ls > kk
-du $filePath > ./size.out
+du $fileName > ./size.out
 bye
 EOF 
 EOF
