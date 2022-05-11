@@ -23,7 +23,7 @@ conda install -c conda-forge lftp
 
 ```bash
 chmod +x ftp_put_files.sh
-./ftp_put_files.sh --directory mydata/ --file schout*nc
+./ftp_put_files.sh --file data/schout*nc
 ```
 
 
