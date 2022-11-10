@@ -10,28 +10,29 @@
 
 while [ $# -gt 0 ] ; do
     case $1 in
-        -d | --directory) directory=$2;;
+#        -d | --directory) directory=$2;;
         -f | --file) fileRoot=$2;;
-        -u | --user) username=$2;;
+#        -u | --user) username=$2;;
     esac
     shift
 done
 
 
-if [ -z "${directory+xxx}" ]
-then
-    echo "Error! Undefined directory path."
-    echo "Example: --directory data/"
-    exit -1
-fi
+#if [ -z "${directory+xxx}" ]
+#then
+#    echo "Error! Undefined directory path."
+#    echo "Example: --directory data/"
+#    exit -1
+#fi
 
 if [ -z "${fileRoot+xxx}" ]
 then
     echo "Error! Undefined file root."
-    echo "Example: --file schout*nc"
+    echo "Example: --file data/schout*nc"
     exit -1
 fi
 
+<<<<<<< HEAD
 if [ -z "${username+xxx}" ]
 then
 	echo "========================================================================="
@@ -39,6 +40,15 @@ then
 	echo "========================================================================="
 	username=
 fi
+=======
+#if [ -z "${username+xxx}" ]
+#then
+#	echo "========================================================================="
+#    echo "Saving data in feyenlu folder"
+#	echo "========================================================================="
+#	username=
+#fi
+>>>>>>> 10f4647a7213f604ac5d9200961449e2173a4b5f
 
 if [ -z "${CREDENTIALS+xxx}" ]
 then
@@ -65,14 +75,15 @@ lftp=$LFTP
 rm -rf ./exist.out ./size.out ./kk*
 
 getRemoteExists (){
-  filePath=$1
+	filePath=$1
+	fileName=$(echo ${filePath} | awk -F '/' '{print $NF}')
 $lftp -u $CREDENTIALS $ftpportal << EOF
 set ftp:ssl-auth TLS
 set ftp:ssl-force yes
 set ssl:verify-certificate no
 set ssl-allow true
-cd input-ftp/${username}
-du $filePath > ./exist.out
+cd input-ftp/
+du $fileName > ./exist.out
 bye
 EOF 
 EOF
@@ -87,15 +98,16 @@ EOF
 
 
 getRemoteSize (){
-  filePath=$1
+	filePath=$1
+	fileName=$(echo ${filePath} | awk -F '/' '{print $NF}')
 $lftp -u $CREDENTIALS $ftpportal << EOF
 set ftp:ssl-auth TLS
 set ftp:ssl-force yes
 set ssl:verify-certificate no
 set ssl-allow true
-cd input-ftp/${username}/
+cd input-ftp//
 ls > kk
-du $filePath > ./size.out
+du $fileName > ./size.out
 bye
 EOF 
 EOF
@@ -119,13 +131,13 @@ set ftp:ssl-auth TLS
 set ftp:ssl-force yes
 set ssl:verify-certificate no
 set ssl-allow true
-cd input-ftp/${username}
+cd input-ftp/
 put $srcflpath
 bye
 EOF
 }
 
-for fl in $directory/$fileRoot
+for fl in $fileRoot
 do
   echo 'copying file '$fl
   remoteExist=$(getRemoteExists $fl)
