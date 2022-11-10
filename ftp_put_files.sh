@@ -37,7 +37,7 @@ then
 	echo "========================================================================="
     echo "Saving data in feyenlu folder"
 	echo "========================================================================="
-	username=feyenlu
+	username=
 fi
 
 if [ -z "${CREDENTIALS+xxx}" ]
