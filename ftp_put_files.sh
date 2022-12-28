@@ -32,24 +32,6 @@ then
     exit -1
 fi
 
-<<<<<<< HEAD
-if [ -z "${username+xxx}" ]
-then
-	echo "========================================================================="
-    echo "Saving data in feyenlu folder"
-	echo "========================================================================="
-	username=
-fi
-=======
-#if [ -z "${username+xxx}" ]
-#then
-#	echo "========================================================================="
-#    echo "Saving data in feyenlu folder"
-#	echo "========================================================================="
-#	username=
-#fi
->>>>>>> 10f4647a7213f604ac5d9200961449e2173a4b5f
-
 if [ -z "${CREDENTIALS+xxx}" ]
 then
     echo "Error! Undefined CREDENTIALS."
